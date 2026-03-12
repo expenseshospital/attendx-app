@@ -243,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(width: 16),
             Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('Good \${_getGreeting()}!', style: const TextStyle(color: Colors.white70, fontSize: 14)),
+              Text('Good ${_getGreeting()}!', style: const TextStyle(color: Colors.white70, fontSize: 14)),
               Text(widget.employeeData['name'] ?? 'Employee',
                 style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
               const SizedBox(height: 4),
@@ -297,21 +297,41 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         const SizedBox(height: 24),
 
-        // Face Recognition Notice
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.blue[50],
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.blue.withOpacity(0.2)),
+        // Face Registration Notice
+        if (widget.employeeData['face_registered'] == false)
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.orange[50],
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.orange.withOpacity(0.4)),
+            ),
+            child: Row(children: [
+              const Icon(Icons.warning_amber, color: Colors.orange, size: 20),
+              const SizedBox(width: 8),
+              const Expanded(child: Text('Please register your face in Profile tab first!',
+                style: TextStyle(fontSize: 12, color: Colors.orange))),
+              TextButton(
+                onPressed: () => setState(() => _currentTab = 2),
+                child: const Text('Go', style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold)),
+              ),
+            ]),
+          )
+        else
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.blue[50],
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.blue.withOpacity(0.2)),
+            ),
+            child: Row(children: [
+              const Icon(Icons.face, color: Color(0xFF1D6FE8), size: 20),
+              const SizedBox(width: 8),
+              const Expanded(child: Text('Face verification required for attendance',
+                style: TextStyle(fontSize: 12, color: Color(0xFF1D6FE8)))),
+            ]),
           ),
-          child: Row(children: [
-            const Icon(Icons.face, color: Color(0xFF1D6FE8), size: 20),
-            const SizedBox(width: 8),
-            const Expanded(child: Text('Face verification required for attendance',
-              style: TextStyle(fontSize: 12, color: Color(0xFF1D6FE8)))),
-          ]),
-        ),
         const SizedBox(height: 24),
 
         // DUTY Button
