@@ -42,15 +42,23 @@ class _HomeScreenState extends State<HomeScreen> {
     _checkGeofence(position);
   }
 
-  void _checkGeofence(Position position) {
-    final org = widget.employeeData['organizations'] as Map?;
-    final orgLat = (org?['lat'] ?? 0.0) as double;
-    final orgLng = (org?['lng'] ?? 0.0) as double;
-    final radius = (org?['geofence_radius'] ?? 100) as num;
+  void _checkGeofence(Position position) async {
+    try {
+      final orgData = await Supabase.instance.client
+          .from('organizations')
+          .select('lat, lng, geofence_radius')
+          .eq('id', widget.employeeData['org_id'])
+          .single();
+      final orgLat = (orgData['lat'] ?? 0.0) as double;
+      final orgLng = (orgData['lng'] ?? 0.0) as double;
+      final radius = (orgData['geofence_radius'] ?? 100) as num;
     double distance = Geolocator.distanceBetween(
       position.latitude, position.longitude, orgLat, orgLng,
     );
     setState(() => _isInsideGeofence = distance <= radius);
+    } catch (e) {
+      setState(() => _isInsideGeofence = false);
+    }
   }
 
   Future<void> _checkTodayAttendance() async {
