@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       final response = await Supabase.instance.client
           .from('employees')
-          .select()
+          .select('*, organizations!org_id(lat, lng, geofence_radius)')
           .eq('mobile', _mobileController.text.trim())
           .eq('password_hash', _passwordController.text.trim())
           .eq('is_active', true)

@@ -41,9 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _checkGeofence(Position position) {
-    final orgLat = (widget.employeeData['org_lat'] ?? 0.0) as double;
-    final orgLng = (widget.employeeData['org_lng'] ?? 0.0) as double;
-    final radius = (widget.employeeData['geofence_radius'] ?? 100) as num;
+    final org = widget.employeeData['organizations'] as Map?;
+    final orgLat = (org?['lat'] ?? 0.0) as double;
+    final orgLng = (org?['lng'] ?? 0.0) as double;
+    final radius = (org?['geofence_radius'] ?? 100) as num;
     double distance = Geolocator.distanceBetween(
       position.latitude, position.longitude, orgLat, orgLng,
     );
