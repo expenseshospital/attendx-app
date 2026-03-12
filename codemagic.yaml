@@ -3,20 +3,13 @@ workflows:
     name: AttendX Android Build
     max_build_duration: 60
     environment:
-      flutter: 3.19.0
-      android_signing:
-        - keystore_reference
-      vars:
-        SUPABASE_URL: $SUPABASE_URL
-        SUPABASE_KEY: $SUPABASE_KEY
+      flutter: 3.19.6
+      java: 17
     scripts:
       - name: Get Flutter packages
         script: flutter pub get
       - name: Build APK
-        script: |
-          flutter build apk --release \
-            --dart-define=SUPABASE_URL=$SUPABASE_URL \
-            --dart-define=SUPABASE_KEY=$SUPABASE_KEY
+        script: flutter build apk --debug
     artifacts:
       - build/**/outputs/**/*.apk
     publishing:
