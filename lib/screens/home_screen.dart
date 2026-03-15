@@ -56,8 +56,16 @@ class _HomeScreenState extends State<HomeScreen> {
       position.latitude, position.longitude, orgLat, orgLng,
     );
     setState(() => _isInsideGeofence = distance <= radius);
+    if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('Distance: ${distance.toStringAsFixed(0)}m, Radius: $radius, Inside: ${distance <= radius}'),
+      duration: const Duration(seconds: 5),
+    ));
     } catch (e) {
       setState(() => _isInsideGeofence = false);
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Geofence error: $e'),
+        duration: const Duration(seconds: 5),
+      ));
     }
   }
 
