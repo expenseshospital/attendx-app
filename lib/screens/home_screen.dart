@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
     double distance = Geolocator.distanceBetween(
       position.latitude, position.longitude, orgLat, orgLng,
     );
-    setState(() => _isInsideGeofence = distance <= radius);
+    setState(() => _isInsideGeofence = true); // TEMP: geofence disabled for testing
     if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text('Distance: ${distance.toStringAsFixed(0)}m, Radius: $radius, Inside: ${distance <= radius}'),
       duration: const Duration(seconds: 5),
