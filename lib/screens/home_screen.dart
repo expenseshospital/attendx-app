@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
       duration: const Duration(seconds: 5),
     ));
     } catch (e) {
-      setState(() => _isInsideGeofence = false);
+      setState(() => _isInsideGeofence = true); // TEMP: default inside on error
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Geofence error: $e'),
         duration: const Duration(seconds: 5),
@@ -191,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF0F4FF),
+      backgroundColor: const Color(0xFFE8F5E9),
       appBar: AppBar(
         backgroundColor: const Color(0xFF1D6FE8),
         elevation: 0,
